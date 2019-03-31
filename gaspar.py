@@ -32,7 +32,7 @@ import io
 import json
 import datetime
 
-
+global JAVAVXS
 
 LOGIN_BASE_URI = 'https://monespace.grdf.fr/web/guest/monespace'
 API_BASE_URI = 'https://monespace.grdf.fr/monespace/particulier'
@@ -158,6 +158,8 @@ def _get_data(session, resource_id, start_date=None, end_date=None):
                 'Referer':'https://monespace.grdf.fr/monespace/particulier/consommation/tableau-de-bord',
                 'X-Requested-With':'XMLHttpRequest'}
 
+    global JAVAVXS
+
     payload = {
                 'javax.faces.partial.ajax':'true',
                 'javax.faces.source':'_eConsosynthese_WAR_eConsoportlet_:j_idt5:j_idt121',
@@ -196,14 +198,13 @@ def _get_data(session, resource_id, start_date=None, end_date=None):
 
 
     #print(value)
-    global JAVAVXS
     JAVAVXS=value
 
     #Step 1
     payload = {
                'javax.faces.partial.ajax':'true',
-               'javax.faces.source':'_eConsoconsoDetaille_WAR_eConsoportlet_:idFormConsoDetaille:j_idt106',
-               'javax.faces.partial.execute':'_eConsoconsoDetaille_WAR_eConsoportlet_:idFormConsoDetaille:j_idt106',
+               'javax.faces.source':'_eConsoconsoDetaille_WAR_eConsoportlet_:idFormConsoDetaille:j_idt113',
+               'javax.faces.partial.execute':'_eConsoconsoDetaille_WAR_eConsoportlet_:idFormConsoDetaille:j_idt113',
                'javax.faces.partial.render':'_eConsoconsoDetaille_WAR_eConsoportlet_:idFormConsoDetaille',
                'javax.faces.behavior.event':'click',
                'javax.faces.partial.event':'click',
@@ -240,7 +241,7 @@ def _get_data(session, resource_id, start_date=None, end_date=None):
     payload = {
                'javax.faces.partial.ajax':'true',
                'javax.faces.source':'_eConsoconsoDetaille_WAR_eConsoportlet_:idFormConsoDetaille:panelTypeGranularite1:2',
-               'javax.faces.partial.execute':'_eConsoconsoDetaille_WAR_eConsoportlet_:idFormConsoDetaille:panelTypeGranularite1',
+               'javax.faces.partial.execute':'_eConsoconsoDetaille_WAR_eConsoportlet_:idFormConsoDetaille:panelTypeGranularite ',
                'javax.faces.partial.render':'_eConsoconsoDetaille_WAR_eConsoportlet_:idFormConsoDetaille:refreshHighchart _eConsoconsoDetaille_WAR_eConsoportlet_:idFormConsoDetaille:updateDatesBean _eConsoconsoDetaille_WAR_eConsoportlet_:idFormConsoDetaille:boutonTelechargerDonnees _eConsoconsoDetaille_WAR_eConsoportlet_:idFormConsoDetaille:panelTypeGranularite _eConsoconsoDetaille_WAR_eConsoportlet_:idFormConsoDetaille:idBlocSeuilParametrage',
                'javax.faces.behavior.event':'valueChange',
                'javax.faces.partial.event':'change',
@@ -249,7 +250,7 @@ def _get_data(session, resource_id, start_date=None, end_date=None):
                '_eConsoconsoDetaille_WAR_eConsoportlet_:idFormConsoDetaille:idDateDebutConsoDetaille':start_date,
                '_eConsoconsoDetaille_WAR_eConsoportlet_:idFormConsoDetaille:idDateFinConsoDetaille':end_date,
                '_eConsoconsoDetaille_WAR_eConsoportlet_:idFormConsoDetaille:panelTypeGranularite1':resource_id.lower(),
-               '_eConsoconsoDetaille_WAR_eConsoportlet_:idFormConsoDetaille:panelTypeGranularite3':'mois',
+               '_eConsoconsoDetaille_WAR_eConsoportlet_:idFormConsoDetaille:panelTypeGranularite3':resource_id.lower(),
                '_eConsoconsoDetaille_WAR_eConsoportlet_:idFormConsoDetaille:selecteurVolumeType2':'kwh',
                '_eConsoconsoDetaille_WAR_eConsoportlet_:idFormConsoDetaille:selecteurVolumeType4':'kwh',
                'javax.faces.ViewState': JAVAVXS
@@ -276,7 +277,7 @@ def _get_data(session, resource_id, start_date=None, end_date=None):
     #print(session.headers)
     #print(session.cookies)
     #print(payload)
-    #print(req.text)
+    print(req.text)
 
     # Parse to get the data
     md = re.search("donneesCourante = \"(.*?)\"", req.text)
